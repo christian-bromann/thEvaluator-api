@@ -45,7 +45,7 @@ app.post('/api/testcase',function(req,res) {
     var newTestCase = new TestCase({
             id: generateID(),
             name: req.body.name,
-            url: req.body.startURL,
+            url: req.body.url,
             maxTime: req.body.maxTime,
             targetElem: req.body.targetElem,
             targetAction: req.body.targetAction,
@@ -55,10 +55,23 @@ app.post('/api/testcase',function(req,res) {
     newTestCase.save();
 
     console.log('TestCase %s saved!',newTestCase.id);
+    res.set('Content-Type', 'application/json');
     res.send(newTestCase);
 });
 
-// save test case
+app.get('/api/testcase',function(req,res) {
+    TestCase.find({},function(err,testCase) {
+        res.set('Content-Type', 'application/json');
+        res.send(testCase);
+    });
+});
+
+app.delete('/api/testcase/:id',function(req,res) {
+    TestCase.find({'_id':req.params.id}).remove();
+    console.log('TestCase %s removed!',req.params.id);
+    res.send(200);
+});
+
 app.get('/watch/:id',function(req,res) {
     TestCase.find({'id':req.params.id},function(err,testCase) {
         res.set('Content-Type', 'text/html');
