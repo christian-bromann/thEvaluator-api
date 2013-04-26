@@ -59,10 +59,11 @@ app.post('/api/testcase',function(req,res) {
     res.send(newTestCase);
 });
 
-app.get('/api/testcase',function(req,res) {
-    TestCase.find({},function(err,testCase) {
+app.get('/api/testcase/:id?',function(req,res) {
+    var query = req.params.id ? {id:req.params.id} : {};
+    TestCase.find(query,function(err,testCases) {
         res.set('Content-Type', 'application/json');
-        res.send(testCase);
+        res.send(req.params.id ? testCases[0] : testCases);
     });
 });
 
@@ -80,23 +81,23 @@ app.get('/watch/:id',function(req,res) {
 });
 
 // store mouse position
-// io.sockets.on('connection', function(socket) {
+io.sockets.on('connection', function(socket) {
 
-//     socket.on('startTestCase', function (id, fn) {
-//         TestCase.findOne( { 'id' : id } , function(err,testCase) {
-//             fn(testCase);
-//         });
-//     });
+    socket.on('startTestCase', function (id, fn) {
+        TestCase.findOne( { 'id' : id } , function(err,testCase) {
+            fn(testCase);
+        });
+    });
 
-//     socket.on('mousePosition', function(data) {
-//         // console.log(socket.id);
-//         TestCase.findOne({'id':data.id},function(err,testCase) {
-//             testCase.mousePositions.push({ x: data.x, y: data.y });
-//             testCase.save();
-//         });
-//         console.log('new mouse position for test case %s: [x:%s,y:%s]', data.id, data.x, data.y);
-//     });
-// });
+    socket.on('mousePosition', function(data) {
+        // console.log(socket.id);
+        TestCase.findOne({'id':data.id},function(err,testCase) {
+            testCase.mousePositions.push({ x: data.x, y: data.y });
+            testCase.save();
+        });
+        console.log('new mouse position for test case %s: [x:%s,y:%s]', data.id, data.x, data.y);
+    });
+});
 
 // start server to listen on port 80
 server.listen(9001);
