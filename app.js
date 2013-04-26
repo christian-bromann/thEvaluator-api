@@ -1,3 +1,6 @@
+/* jshint -W024 */
+/* jshint expr:true */
+
 // define vars
 var application_root = __dirname,
 
@@ -62,6 +65,12 @@ app.post('/api/testcase',function(req,res) {
 app.get('/api/testcase/:id?',function(req,res) {
     var query = req.params.id ? {id:req.params.id} : {};
     TestCase.find(query,function(err,testCases) {
+
+        if(!testCases) {
+            res.send(500);
+            return;
+        }
+
         res.set('Content-Type', 'application/json');
         res.send(req.params.id ? testCases[0] : testCases);
     });
@@ -73,11 +82,41 @@ app.delete('/api/testcase/:id',function(req,res) {
     res.send(200);
 });
 
+app.put('/api/testcase/:id',function(req,res) {
+    TestCase.findOne({_id:req.params.id},function(err,testcase) {
+
+        if(!testcase) {
+            res.send(500);
+            return;
+        }
+
+        testcase.name = req.body.name;
+        testcase.url = req.body.url;
+        testcase.maxTime = req.body.maxTime;
+        testcase.targetElem = req.body.targetElem;
+        testcase.targetAction = req.body.targetAction;
+        testcase.cookies = req.body.cookies;
+        testcase.save(function(err) {
+            if(!err) {
+                console.log('TestCase %s updated!',req.params.id);
+                res.set('Content-Type', 'application/json');
+                res.send(testcase);
+            } else {
+                res.send(500);
+            }
+        });
+    });
+});
+
 app.get('/watch/:id',function(req,res) {
     TestCase.find({'id':req.params.id},function(err,testCase) {
         res.set('Content-Type', 'text/html');
         res.send(testCase);
     });
+});
+
+app.options('*',function(req,res) {
+    res.send(200);
 });
 
 // store mouse position
