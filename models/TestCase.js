@@ -1,17 +1,16 @@
 // define vars
-var mongoose   = require('mongoose'),
+var mongoose = require('mongoose'),
+    Schema   = mongoose.Schema,
 
     // create test case schema and model
-    schema   = new mongoose.Schema( {
+    schema   = new mongoose.Schema({
         id:           String,
         timestamp:    { 'type': Date,   'default': Date.now },
         name:         String,
         url:          String,
         maxTime:      Number,
-        targetElem:   String,
-        targetAction: String,
         cookies:      Array,
-        mousePositions: [{ x: Number, y: Number }]
+        tasks:        [{type: Schema.ObjectId, ref: 'Task'}]
     }),
     TestCase = mongoose.model('TestCase',schema);
 
