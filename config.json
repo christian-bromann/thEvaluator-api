@@ -1,0 +1,22 @@
+{
+  "enviroments": {
+    "dev": {
+      "port": 9001,
+      "secret": "thEvaluator",
+      "showLogs": true,
+      "db": {
+        "user": "root",
+        "pass": "root",
+        "database": "thEvaluator",
+        "host": "localhost",
+        "port": 27017
+      }
+    },
+    "prod": {
+      "port": 80,
+      "secret": "CP7AWaXDfAKIRfH49dQzKJx7sKzzSoPq7/AcBBRVwlI3",
+      "showLogs": false,
+      "db": {}
+    }
+  }
+}
