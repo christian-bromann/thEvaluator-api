@@ -1,6 +1,6 @@
-var TestCase   = require('/models/TestCase').model,
-	Task       = require('./models/Task').model,
-	generateID = require('./utils/generateID');
+var TestCase   = require('../../models/TestCase').model,
+	Task       = require('../../models/Task').model,
+	generateID = require('../../utils/generateID');
 
 exports.url = '/api/testcase';
 exports.callback = function(req,res) {

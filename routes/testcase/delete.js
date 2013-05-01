@@ -1,4 +1,4 @@
-var TestCase = require('/models/TestCase');
+var TestCase = require('../../models/TestCase');
 
 exports.url = '/api/testcase/:id';
 exports.callback = function(req,res) {

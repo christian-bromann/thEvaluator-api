@@ -1,5 +1,5 @@
-var TestCase = require('/models/TestCase').model,
-    Task     = require('./models/Task').model;
+var TestCase = require('../../models/TestCase').model,
+    Task     = require('../../models/Task').model;
 
 exports.url = '/api/testcase/:id';
 exports.callback = function(req,res) {
