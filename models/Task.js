@@ -10,7 +10,14 @@ var mongoose = require('mongoose'),
         targetElem:   String,
         targetAction: String,
         _testcase:    { type: Schema.ObjectId, ref: 'TestCase' }
-    }),
-    Task = mongoose.model('Task',schema);
+    });
 
-exports.model = Task;
+schema.methods.setAttributes = function(obj) {
+    this.name         = obj.name;
+    this.description  = obj.description;
+    this.required     = obj.required;
+    this.targetElem   = obj.targetElem;
+    this.targetAction = obj.targetAction;
+};
+
+exports.model = mongoose.model('Task',schema);

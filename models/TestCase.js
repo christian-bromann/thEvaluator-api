@@ -11,7 +11,13 @@ var mongoose = require('mongoose'),
         maxTime:      Number,
         cookies:      Array,
         tasks:        [{type: Schema.ObjectId, ref: 'Task'}]
-    }),
-    TestCase = mongoose.model('TestCase',schema);
+    });
 
-exports.model = TestCase;
+schema.methods.setAttributes = function(obj) {
+    this.name    = obj.name;
+    this.url     = obj.url;
+    this.maxTime = obj.maxTime;
+    this.cookies = obj.cookies;
+};
+
+exports.model = mongoose.model('TestCase',schema);
