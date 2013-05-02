@@ -1,9 +1,10 @@
-var TestCase = require('../../models/TestCase');
+var TestCase = require('../../models/TestCase').model;
 
-exports.url = '/api/testcase/:id?';
+exports.type     = 'get';
+exports.url      = '/api/testcase/:id?';
 exports.callback = function(req,res) {
     var query = req.params.id ? {id:req.params.id} : {};
-    console.log(TestCase);
+
     TestCase
         .find(query)
         .populate('tasks')

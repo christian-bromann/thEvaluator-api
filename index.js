@@ -22,8 +22,6 @@ var API = module.exports = function(options) {
     // create io instance
     this.io      = socketio.listen(this.server, { log: this.options.showLogs });
 
-    this.routes = new Routes(this.express);
-
 };
 
 /**
@@ -32,7 +30,8 @@ var API = module.exports = function(options) {
 API.prototype.setup = function() {
 
     // connect to mongodb
-    this.db = mongoose.createConnection('mongodb://user:pass@host:port/database'.replace(/[a-z]+/g,function(all) { return this[all] || all; }.bind(this.options.db)));
+    var uri = 'mongodb://user:pass@host:port/database'.replace(/[a-z]+/g,function(all) { return this[all] || all; }.bind(this.options.db));
+    mongoose.connect(uri, this.options.db);
 
     // configure express
     this.express.configure(function(){
@@ -45,6 +44,8 @@ API.prototype.setup = function() {
         this.express.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
         this.express.set('views', path.join(__dirname, "views"));
     }.bind(this));
+
+    this.routes = new Routes(this.express);
 
 };
 

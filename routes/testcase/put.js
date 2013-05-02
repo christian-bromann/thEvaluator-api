@@ -1,8 +1,10 @@
 var TestCase = require('../../models/TestCase').model,
     Task     = require('../../models/Task').model;
 
-exports.url = '/api/testcase/:id';
+exports.type     = 'put';
+exports.url      = '/api/testcase/:id';
 exports.callback = function(req,res) {
+
     var taskOrder = [],
         cnt = 0;
 

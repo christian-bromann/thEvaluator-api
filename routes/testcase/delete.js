@@ -1,6 +1,7 @@
 var TestCase = require('../../models/TestCase');
 
-exports.url = '/api/testcase/:id';
+exports.type     = 'delete';
+exports.url      = '/api/testcase/:id';
 exports.callback = function(req,res) {
 
     TestCase.find({'_id':req.params.id}).remove();
