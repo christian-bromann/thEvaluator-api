@@ -8,7 +8,8 @@ var express    = require("express"),
     mongoose   = require('mongoose'),
     socketio   = require('socket.io'),
     Routes     = require('./routes'),
-    config     = require('./config.json');
+    config     = require('./config.json'),
+    registerSockets = require('./io/index');
 
 var API = module.exports = function(options) {
 
@@ -21,6 +22,7 @@ var API = module.exports = function(options) {
     this.server  = http.createServer(this.express);
     // create io instance
     this.io      = socketio.listen(this.server, { log: this.options.showLogs });
+    this.io.sockets.on('connection', registerSockets);
 
 };
 
