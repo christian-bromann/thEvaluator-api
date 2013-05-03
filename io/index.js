@@ -2,10 +2,13 @@ var TestCase = require('../models/TestCase').model;
 
 var connections = module.exports = function(socket) {
 
-	socket.on('startTestCase', function (id, fn) {
-        TestCase.findOne( { 'id' : id } , function(err,testCase) {
-            fn(testCase);
-        });
+    socket.on('getTestcase', function (id, fn) {
+        TestCase
+            .findOne({ 'id' : id })
+            .populate('tasks')
+            .exec(function(err,testcase) {
+                fn(testcase);
+            });
     });
 
     socket.on('mousePosition', function(data) {
