@@ -8,8 +8,8 @@ var mongoose = require('mongoose'),
         timestamp:    { 'type': Date,   'default': Date.now },
         name:         String,
         url:          String,
-        maxTime:      Number,
         cookies:      Array,
+        resolution:   [Number,Number],
         tasks:        [{type: Schema.ObjectId, ref: 'Task'}]
     });
 

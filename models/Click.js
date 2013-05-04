@@ -12,6 +12,7 @@ var mongoose = require('mongoose'),
         scrollX:     Number,
         scrollY:     Number,
         url:         String,
+        screenshots: [String],
         _task:       { type: Schema.ObjectId, ref: 'Task' },
         _testcase:   { type: Schema.ObjectId, ref: 'TestCase' }
     });

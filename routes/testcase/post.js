@@ -7,11 +7,11 @@ exports.url      = '/api/testcase';
 exports.callback = function(req,res) {
 
     var newTestCase = new TestCase({
-            id:      generateID(),
-            name:    req.body.name,
-            url:     req.body.url,
-            maxTime: req.body.maxTime,
-            cookies: req.body.cookies
+            id:         generateID(),
+            name:       req.body.name,
+            url:        req.body.url,
+            cookies:    req.body.cookies,
+            resolution: req.body.resolution
         });
 
     newTestCase.save(function(err) {
@@ -29,6 +29,7 @@ exports.callback = function(req,res) {
                     required:     reqTask.required,
                     targetElem:   reqTask.targetElem,
                     targetAction: reqTask.targetAction,
+                    maxTime:      reqTask.maxTime,
                     _testcase:    newTestCase._id
                 });
 

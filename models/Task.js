@@ -9,6 +9,7 @@ var mongoose = require('mongoose'),
         required:     Boolean,
         targetElem:   String,
         targetAction: String,
+        maxTime:      Number,
         _testcase:    { type: Schema.ObjectId, ref: 'TestCase' }
     });
 
