@@ -1,4 +1,4 @@
-var TestCase = require('../../models/TestCase');
+var TestCase = require('../../models/TestCase').model;
 
 exports.type     = 'delete';
 exports.url      = '/api/testcase/:id';
