@@ -14,10 +14,10 @@ var mongoose = require('mongoose'),
     });
 
 schema.methods.setAttributes = function(obj) {
-    this.name    = obj.name;
-    this.url     = obj.url;
-    this.maxTime = obj.maxTime;
-    this.cookies = obj.cookies;
+    this.name       = obj.name;
+    this.url        = obj.url;
+    this.cookies    = obj.cookies;
+    this.resolution = obj.resolution;
 };
 
 exports.model = mongoose.model('TestCase',schema);

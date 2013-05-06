@@ -19,6 +19,7 @@ schema.methods.setAttributes = function(obj) {
     this.required     = obj.required;
     this.targetElem   = obj.targetElem;
     this.targetAction = obj.targetAction;
+    this.maxTime      = obj.maxTime;
 };
 
 exports.model = mongoose.model('Task',schema);
