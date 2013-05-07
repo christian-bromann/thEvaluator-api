@@ -13,19 +13,21 @@ var routes = module.exports = function(app) {
         res.send(200);
     });
 
-    var routes = fs.readdirSync('./routes').filter(function(elem) { return elem.indexOf('.') === -1; });
+    var routes     = {},
+        routePaths = fs.readdirSync('./routes').filter(function(elem) { return elem.indexOf('.') === -1; });
 
-    routes.forEach(function(elem,i,routes) {
+    routePaths.forEach(function(elem,i) {
 
+        console.log('register '+elem);
         var rest = fs.readdirSync('./routes/'+elem).map(function(service){
 
-            var type = service.replace('.js',''),
-                ret  = {};
+            var ret = {};
 
             service = require('./' + elem + '/' + service);
 
             if(app[service.type]) {
-                app[type](service.url,service.callback);
+                console.log('register REST service [%s] %s',service.type,service.url);
+                app[service.type](service.url,service.callback);
             }
 
             return service;
@@ -33,7 +35,7 @@ var routes = module.exports = function(app) {
         });
 
         routes[elem] = rest;
-        routes.splice(i,1);
+
     });
 
     return routes;
