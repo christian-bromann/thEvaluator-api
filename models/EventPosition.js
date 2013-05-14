@@ -20,4 +20,4 @@ schema.methods.setAttributes = function(obj) {
     this._testrun    = obj._testrun;
 };
 
-exports.model = mongoose.model('Click',schema);
+exports.model = mongoose.model('EventPosition',schema);

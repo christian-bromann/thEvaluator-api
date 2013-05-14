@@ -1,6 +1,6 @@
-var TestCase = require('../models/TestCase').model,
-    TestRun  = require('../models/TestRun').model,
-    Click    = require('../models/Click').model;
+var TestCase      = require('../models/TestCase').model,
+    TestRun       = require('../models/TestRun').model,
+    EventPosition = require('../models/EventPosition').model;
 
 var connections = module.exports = function(socket) {
 
@@ -13,9 +13,9 @@ var connections = module.exports = function(socket) {
             });
     });
 
-    socket.on('mousePosition', function(data) {
+    socket.on('clickPosition', function(data) {
 
-        var click = new Click(data);
+        var click = new EventPosition(data);
 
         click.save(function(err,click) {
 
@@ -33,6 +33,41 @@ var connections = module.exports = function(socket) {
                 }
 
                 testrun.clicks.push(click._id);
+                testrun.save(function() {
+
+                    if(err) {
+                        console.error('couldn\'t update testrun');
+                        process.exit(1);
+                    }
+
+                    console.log('new mouse position for testrun %s and task %s: [x:%s,y:%s]', testrun._id, data._task, data.x, data.y);
+                });
+
+            });
+        });
+    });
+
+    // TODO encapsulate into own file
+    socket.on('movePosition', function(data) {
+
+        var move = new EventPosition(data);
+
+        move.save(function(err,move) {
+
+            if(err) {
+                console.error('couldn\'t save move');
+                process.exit(1);
+            }
+
+            // add move to testrun
+            TestRun.findOne({ _id: data._testrun }, function(err, testrun) {
+
+                if(err || !testrun) {
+                    console.error('couldn\'t find testrun for move %s',move._id);
+                    process.exit(1);
+                }
+
+                testrun.moves.push(move._id);
                 testrun.save(function() {
 
                     if(err) {

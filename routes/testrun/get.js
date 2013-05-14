@@ -7,7 +7,7 @@ exports.callback = function(req,res) {
 
     TestCase
         .find(query)
-        .populate('_testcase clicks')
+        .populate('_testcase clicks moves')
         .exec(function(err,testRun) {
 
             if(!testRun) {

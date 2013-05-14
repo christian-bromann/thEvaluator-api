@@ -5,7 +5,8 @@ var mongoose = require('mongoose'),
     // create test case schema and model
     schema   = new mongoose.Schema({
         timestamp:   { 'type': Date,   'default': Date.now },
-        clicks:      [{type: Schema.ObjectId, ref: 'Click'}],
+        clicks:      [{type: Schema.ObjectId, ref: 'EventPosition'}],
+        moves:       [{type: Schema.ObjectId, ref: 'EventPosition'}],
         geoData: {
             city:        String,
             countryCode: String,
