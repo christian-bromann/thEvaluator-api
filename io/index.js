@@ -99,4 +99,28 @@ var connections = module.exports = function(socket) {
         });
     });
 
+    socket.on('endTestrun', function(data,fn) {
+
+        TestRun.findOne({ _id: data.id }, function(err, testrun) {
+
+            if(err || !testrun) {
+                console.error('couldn\'t end testrun with id %s',data.id);
+                process.exit(1);
+            }
+
+            testrun.status = data.status;
+            testrun.save(function() {
+
+                if(err) {
+                    console.error('couldn\'t update testrun');
+                    process.exit(1);
+                }
+
+                console.log('updated status of testrun to %d', data.status);
+            });
+
+        });
+
+    });
+
 };
