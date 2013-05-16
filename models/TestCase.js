@@ -42,6 +42,25 @@ var mongoose = require('mongoose'),
         resolution:   [Number,Number],
 
         /**
+         * list of taken screenshot during the testrun
+         * @type {Array}
+         */
+        screenshots: [{
+
+            /**
+             * path of screenshot
+             * @type {String}
+             */
+            path:     String,
+
+            /**
+             * url of website
+             * @type {String}
+             */
+            url:      String
+        }],
+
+        /**
          * tasks the user has to solve
          * @type {Array}
          */

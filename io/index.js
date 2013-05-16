@@ -1,6 +1,7 @@
 var TestCase      = require('../models/TestCase').model,
     TestRun       = require('../models/TestRun').model,
-    EventPosition = require('../models/EventPosition').model;
+    EventPosition = require('../models/EventPosition').model,
+    fs            = require('fs');
 
 var connections = module.exports = function(socket) {
 
@@ -121,6 +122,28 @@ var connections = module.exports = function(socket) {
 
         });
 
+    });
+
+    socket.on('screenshot', function(data) {
+        var base64Data   = data.imageData.replace(/^data:image\/jpeg;base64,/,""),
+            decodedImage = new Buffer(base64Data, 'base64'),
+            imagePath    = 'screenshots/' + data.testcase._id + '_' + encodeURIComponent(data.url) + '.jpeg';
+
+        fs.writeFile( imagePath, decodedImage, 'base64', function(err) {
+            if(err) {
+                console.log(err);
+            } else {
+                console.log('The screenshot was saved at %s!',imagePath);
+
+                TestCase.findOne({ _id : data.testcase._id }, function(err,testcase) {
+                    testcase.screenshots.push({
+                        path: imagePath,
+                        url:  data.url
+                    });
+                    testcase.save();
+                });
+            }
+        });
     });
 
 };

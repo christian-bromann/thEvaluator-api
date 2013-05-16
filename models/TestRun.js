@@ -46,12 +46,6 @@ var mongoose = require('mongoose'),
         },
 
         /**
-         * list of taken screenshot during the testrun
-         * @type {Array}
-         */
-        screenshots: [String],
-
-        /**
          * current status of testrun
          * 0 - running
          * 1 - ended successful
