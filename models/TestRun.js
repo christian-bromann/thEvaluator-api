@@ -19,6 +19,15 @@ var mongoose = require('mongoose'),
         moves:       [{ type: Schema.ObjectId, ref: 'EventPosition'}],
 
         /**
+         * list of page visits
+         * @type {Array}
+         */
+        visits: [{
+            timestamp: Date,
+            url:       String
+        }],
+
+        /**
          * users geoinformation by smart-ip.net
          * e.g.
          *   city: "Berlin"
