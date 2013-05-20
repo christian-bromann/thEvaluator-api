@@ -157,6 +157,7 @@ var connections = module.exports = function(socket) {
 
             testrun.visits.push({
                 url: data.url,
+                task: data.task,
                 timestamp: new Date().getTime()
             });
             testrun.save(function() {

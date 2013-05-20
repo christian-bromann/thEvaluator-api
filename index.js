@@ -42,9 +42,7 @@ API.prototype.setup = function() {
         this.express.use(express.methodOverride());
         this.express.use(express.session({secret:this.options.secret}));
         this.express.use(this.express.router);
-        this.express.use(express.static(path.join(__dirname, "public")));
         this.express.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-        this.express.set('views', path.join(__dirname, "views"));
     }.bind(this));
 
     this.routes = new Routes(this.express);

@@ -24,6 +24,7 @@ var mongoose = require('mongoose'),
          */
         visits: [{
             timestamp: Date,
+            task:      { type: Schema.ObjectId, ref: 'Task'},
             url:       String
         }],
 
