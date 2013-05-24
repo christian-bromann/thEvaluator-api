@@ -100,6 +100,30 @@ var connections = module.exports = function(socket) {
         });
     });
 
+    socket.on('geoData', function(data,fn) {
+
+        TestRun.findOne({ _id: data._id }, function(err, testrun) {
+
+            if(err || !testrun) {
+                console.error('couldn\'t end testrun with id %s',data._id);
+                process.exit(1);
+            }
+
+            testrun.geoData = data.geoData;
+            testrun.save(function() {
+
+                if(err) {
+                    console.error('couldn\'t update testrun');
+                    process.exit(1);
+                }
+
+                console.log('updated geoData of testrun', data.geoData);
+            });
+
+        });
+
+    });
+
     socket.on('endTestrun', function(data,fn) {
 
         TestRun.findOne({ _id: data.id }, function(err, testrun) {
