@@ -24,6 +24,12 @@ var mongoose = require('mongoose'),
         required:     Boolean,
 
         /**
+         * if true, event propagates
+         * @type {Boolean}
+         */
+        propagate:    Boolean,
+
+        /**
          * target element
          * @type {String}
          */
@@ -56,6 +62,7 @@ schema.methods.setAttributes = function(obj) {
     this.name         = obj.name;
     this.description  = obj.description;
     this.required     = obj.required;
+    this.propagate    = obj.propagate;
     this.targetElem   = obj.targetElem;
     this.targetAction = obj.targetAction;
     this.maxTime      = obj.maxTime;

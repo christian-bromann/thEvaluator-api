@@ -27,6 +27,7 @@ exports.callback = function(req,res) {
                     name:         reqTask.name,
                     description:  reqTask.description,
                     required:     reqTask.required,
+                    propagate:    reqTask.propagate,
                     targetElem:   reqTask.targetElem,
                     targetAction: reqTask.targetAction,
                     maxTime:      reqTask.maxTime,
