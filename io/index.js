@@ -198,4 +198,31 @@ var connections = module.exports = function(socket) {
 
     });
 
+    socket.on('feedback', function(data,fn) {
+
+        TestRun.findOne({ _id: data.id }, function(err, testrun) {
+
+            if(err || !testrun) {
+                console.error('couldn\'t end testrun with id %s',data.id);
+                process.exit(1);
+            }
+
+            testrun.feedback = {
+                text: data.text,
+                timestamp: new Date().getTime()
+            };
+            testrun.save(function() {
+
+                if(err) {
+                    console.error('couldn\'t update testrun');
+                    process.exit(1);
+                }
+
+                console.log('added feedback to testrun');
+            });
+
+        });
+
+    });
+
 };

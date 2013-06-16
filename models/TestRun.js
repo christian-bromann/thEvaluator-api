@@ -67,6 +67,15 @@ var mongoose = require('mongoose'),
         status:      { 'type': Number, 'default': 0 },
 
         /**
+         * user feedback
+         * @type {Object}
+         */
+        feedback: {
+            text:      String,
+            timestamp: Date
+        },
+
+        /**
          * testcase id
          * @type {Schema.ObjectId}
          */
