@@ -16,7 +16,13 @@
       "port": 80,
       "secret": "CP7AWaXDfAKIRfH49dQzKJx7sKzzSoPq7/AcBBRVwlI3",
       "showLogs": false,
-      "db": {}
+      "db": {
+        "user": "thEvaluator",
+        "pass": "3bed76eaf1f24ca8dd40308d7c6b2e47905ed885",
+        "database": "thEvaluator",
+        "host": "localhost",
+        "port": 27017
+      }
     }
   }
 }

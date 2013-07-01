@@ -39,8 +39,9 @@ from nodejitsu for managing node apps to run continuously. First, download it vi
 $ [sudo] npm install forever -g
 ```
 
-After this you can start thEvaluator API app with forever:
+After this you can start thEvaluator API app with Forever. Add a enviroment parameter to start the service
+with your desired settings, set in your config.json:
 
 ```shell
-$ forever start index.js
+$ forever start index.js prod
 ```
