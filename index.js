@@ -8,8 +8,7 @@ var express    = require("express"),
     mongoose   = require('mongoose'),
     socketio   = require('socket.io'),
     Routes     = require('./routes'),
-    config     = require('./config.json'),
-    env        = process.argv.splice(2,1);
+    configs    = require('./config.json'),
     registerSockets = require('./io/index');
 
 var API = module.exports = function(options) {
@@ -64,22 +63,5 @@ API.prototype.start = function() {
 
 // execute start script only if this file was executed
 if(__filename === process.argv[1]) {
-
-    // check if enviroment is given
-    if(env.length !== 1) {
-        console.error('[ERROR] can\'t start thEvaluator API as service!\n');
-        console.info('enviroment argument is missing');
-        process.exit(1);
-    }
-
-    // check if enviroment exists in config file
-    if(config.enviroments[env[0]] === undefined) {
-        console.error('[ERROR] can\'t start thEvaluator API as service!\n');
-        console.info('given enviroment (%s) is unknown in config.js',env[0]);
-        process.exit(1);
-    } else {
-        env = env[0];
-    }
-
-    var app = new API(config.enviroments[env]).start();
+    var app = new API(configs).start();
 }
