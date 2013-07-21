@@ -2,6 +2,7 @@ var fs = require('fs');
 
 var routes = module.exports = function(app) {
 
+    // set general header informations
     app.all('*', function(req, res, next) {
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
@@ -9,13 +10,16 @@ var routes = module.exports = function(app) {
         next();
     });
 
+    // PUT and DELETE are valid and available requests
     app.options('*',function(req,res) {
         res.send(200);
     });
 
     var routes     = {},
+        // find all directories
         routePaths = fs.readdirSync('./routes').filter(function(elem) { return elem.indexOf('.') === -1; });
 
+    // register routes
     routePaths.forEach(function(elem,i) {
 
         console.log('register '+elem);

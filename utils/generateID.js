@@ -1,5 +1,7 @@
-
-// create random ID
+/**
+ * generate random IDs with a length of 10
+ * @return {String} a random ID
+ */
 module.exports = function() {
 
     var text     = '',
