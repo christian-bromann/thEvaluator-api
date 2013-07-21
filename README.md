@@ -29,6 +29,13 @@ $ mongo
 After doing this, define these values in your `config.json` file in the `db` object for your
 enviroment.
 
+# Download project dependencies
+
+Use NPM to download all node modules, required by the API.
+
+```shell
+$ npm install
+```
 
 # Start API Servive
 
